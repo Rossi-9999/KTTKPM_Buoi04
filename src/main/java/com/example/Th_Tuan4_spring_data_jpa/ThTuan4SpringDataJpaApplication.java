@@ -23,6 +23,38 @@ public class ThTuan4SpringDataJpaApplication {
 	public CommandLineRunner run(ChuyenBayDAOImpl chuyenBayDAOImpl, MayBayDAOImpl mayBayDAOImpl, NhanVienDAOImpl nhanVienDAOImpl,
 			ChungNhanDAOImpl chungNhanDAOImpl) {
 		return (ArgsAnnotationPointcut -> {
+			
+			// 1. Cho biết các chuyến bay đi Đà Lạt (DAD).
+			System.out.println(" 1. Cho biết các chuyến bay đi Đà Lạt (DAD).");
+			System.out.println((chuyenBayDAOImpl.listChuyenBayDAD("DAD")));
+			// 2. Cho biết các loại máy bay có tầm bay lớn hơn 10,000km
+			System.out.println(" 2. Cho biết các loại máy bay có tầm bay lớn hơn 10,000km.");
+			System.out.println((mayBayDAOImpl.listTamBay10000(10000)));
+			// 3. Tìm các nhân viên có lương nhỏ hơn 10,000
+			System.out.println("3. Tìm các nhân viên có lương nhỏ hơn 10,000");
+			System.out.println((mayBayDAOImpl.listLoaiBoeing("Boeing")));
+			// 4. Cho biết các chuyến bay có độ dài đường bay nhỏ hơn 10.000km và lớn hơn 8.000km.
+			System.out.println("4. Cho biết các chuyến bay có độ dài đường bay nhỏ hơn 10.000km và lớn hơn 8.000km.");
+			System.out.println((chuyenBayDAOImpl.listChuyenBay10To8()));
+			//5. Cho biết các chuyến bay xuất phát từ Sài Gòn (SGN) đi Ban Mê Thuộc (BMV).
+			System.out.println("5.	Cho biết các chuyến bay xuất phát từ Sài Gòn (SGN) đi Ban Mê Thuộc (BMV).");
+			System.out.println((chuyenBayDAOImpl.listChuyenBayDenVaDi("SGN", "BMV")));
+			//6. Có bao nhiêu chuyến bay xuất phát từ Sài Gòn (SGN).
+			System.out.println("6.	Có bao nhiêu chuyến bay xuất phát từ Sài Gòn (SGN).");
+			System.out.println(("Số chuyến bay xuất phát từ SGN: " + chuyenBayDAOImpl.numChuyenBaySGN()));
+			//7. Có bao nhiêu loại máy báy Boeing.
+			System.out.println("7.	Có bao nhiêu loại máy báy Boeing.");
+			System.out.println(("Số loại máy bay Boeing: " + mayBayDAOImpl.numMayBayBeoing()));
+			//8.Cho biết tổng số lương phải trả cho các nhân viên.
+			System.out.println(" 8.	Cho biết tổng số lương phải trả cho các nhân viên.");
+			System.out.println(("Tổng lương phải trả cho nhân viên NV: " + nhanVienDAOImpl.sumLuongNV()));
+			//9.Cho biết mã số của các phi công lái máy báy Boeing.
+			System.out.println(" 9.	Cho biết mã số của các phi công lái máy báy Boeing.");
+			List<Object[]> pr_list = new ArrayList<Object[]>();
+			pr_list.addAll(chungNhanDAOImpl.listChuyenBayDenVaDi());
+			for (Object[] objects : pr_list) {
+			System.out.println("Mã số phi công: " + objects[0]);
+						}
 			//10. Cho biết các nhân viên có thể lái máy bay có mã số 747.
 			System.out.println("10.	Cho biết các nhân viên có thể lái máy bay có mã số 747.");
 			for (Object[] objects : chungNhanDAOImpl.listNV747()) {
