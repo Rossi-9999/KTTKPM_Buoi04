@@ -12,6 +12,8 @@ import com.example.Th_Tuan4_spring_data_jpa.entity.NhanVien;
 public interface NhanVienDAOImpl extends CrudRepository<NhanVien, String>{
 	
 //	List<NhanVien> findNhanVienByName(String Ten);
+	@Query(value = "select * from nhanvien where Luong < 10000",nativeQuery = true)
+	public List<NhanVien> cau3();
 	@Query(value = "select sum(Luong) from nhanvien",nativeQuery = true)
 	public int sumLuongNV();
 
